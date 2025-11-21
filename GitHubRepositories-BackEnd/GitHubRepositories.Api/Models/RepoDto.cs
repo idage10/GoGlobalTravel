@@ -21,8 +21,6 @@ namespace GitHubRepositories.Api.Models
 
         [JsonProperty("owner")]
         public OwnerDto Owner { get; set; }
-
-        // add any additional fields you want to store
     }
 
     public class OwnerDto

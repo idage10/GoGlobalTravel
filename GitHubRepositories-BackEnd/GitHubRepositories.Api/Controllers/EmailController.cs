@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Web;
 using System.Web.Http;
 using GitHubRepositories.Api.Models;
 
@@ -20,14 +21,17 @@ namespace GitHubRepositories.Api.Controllers
                 var body = BuildEmailBody(req.Repo);
 
                 var message = new MailMessage();
+                message.From = new MailAddress("noreply@myapp.com");
                 message.To.Add(req.To);
                 message.Subject = $"Repository info: {req.Repo?.FullName ?? "Repo"}";
                 message.Body = body;
                 message.IsBodyHtml = true;
 
-                // Using IIS Pickup Directory (no SMTP credentials)
-                var client = new SmtpClient();
-                client.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
+                var client = new SmtpClient
+                {
+                    DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
+                    PickupDirectoryLocation = HttpContext.Current.Server.MapPath("~/App_Data/Emails")
+                };
 
                 client.Send(message);
 
@@ -47,7 +51,6 @@ namespace GitHubRepositories.Api.Controllers
                 <p><strong>Description:</strong> {repo.Description}</p>
                 <p><strong>Url:</strong> <a href='{repo.HtmlUrl}' target='_blank'>{repo.HtmlUrl}</a></p>
                 <p><strong>Owner:</strong> {repo.Owner?.Login}</p>
-                <p><img src='{repo.Owner?.AvatarUrl}' width='80' /></p>
             ";
         }
 

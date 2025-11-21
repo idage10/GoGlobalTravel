@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GithubService } from '../services/github.service';
@@ -17,28 +17,36 @@ import { RepoDto } from '../models/repo.model';
       <button class="btn btn-primary" (click)="onSearch()">Search</button>
     </div>
   </div>
-
-  <div *ngIf="loading" class="mb-3">Searching...</div>
-  <div *ngIf="message" class="alert alert-info">{{ message }}</div>
+  
+  @if(loading) {
+    <div class="mb-3">Searching...</div>
+  }
+  @if(message) {
+    <div class="alert alert-info">{{ message }}</div>
+  }
 
   <div class="row">
-    <div *ngFor="let r of results" class="col-md-6 col-lg-4 mb-3">
-      <div class="card h-100">
-        <img *ngIf="avatarOf(r)" [src]="avatarOf(r)" class="card-img-top" alt="avatar"
-             style="height:160px;object-fit:cover" />
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ displayFullName(r) }}</h5>
-          <p class="card-text text-truncate flex-grow-1">{{ r.description }}</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <a [href]="htmlUrlOf(r)" target="_blank" class="btn btn-sm btn-outline-secondary">Open</a>
-            <div>
-              <button class="btn btn-sm btn-success me-2" (click)="bookmark(r)">Bookmark</button>
-              <button class="btn btn-sm btn-primary" (click)="openEmailModal(r)">Send Email</button>
+    @for (r of results; track r.id) {
+      <div class="col-md-6 col-lg-4 mb-3">
+        <div class="card h-100">
+          @if(avatarOf(r)) {
+            <img [src]="avatarOf(r)" class="card-img-top" alt="avatar"
+               style="height:160px;object-fit:cover" />
+          }
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ displayFullName(r) }}</h5>
+            <p class="card-text text-truncate flex-grow-1">{{ r.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <a [href]="htmlUrlOf(r)" target="_blank" class="btn btn-sm btn-outline-secondary">Open</a>
+              <div>
+                <button class="btn btn-sm btn-success me-2" (click)="bookmark(r)">Bookmark</button>
+                <button class="btn btn-sm btn-primary" (click)="openEmailModal(r)">Send Email</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 
   <!-- Send Email modal -->
@@ -50,11 +58,15 @@ import { RepoDto } from '../models/repo.model';
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p *ngIf="selectedRepo"><strong>Repo:</strong> {{ displayFullName(selectedRepo) }}</p>
+          @if(selectedRepo) {
+            <p><strong>Repo:</strong> {{ displayFullName(selectedRepo) }}</p>
+          }
           <input type="email" class="form-control mb-2" placeholder="Recipient email" [(ngModel)]="emailTo" />
-          <div *ngIf="emailStatus" class="mt-2 alert" [ngClass]="{'alert-success': emailOk, 'alert-danger': !emailOk}">
-            {{ emailStatus }}
-          </div>
+          @if(emailStatus) {
+            <div class="mt-2 alert" [ngClass]="{'alert-success': emailOk, 'alert-danger': !emailOk}">
+              {{ emailStatus }}
+            </div>
+          }
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -76,7 +88,7 @@ export class SearchComponent {
   emailStatus = '';
   emailOk = false;
 
-  constructor(private svc: GithubService) {}
+  constructor(private svc: GithubService, private cdr: ChangeDetectorRef) {}
 
   onSearch() {
     if (!this.query || !this.query.trim()) {
@@ -89,11 +101,13 @@ export class SearchComponent {
       next: (res: any) => {
         this.results = res.items || [];
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.message = 'Error searching GitHub. Check console.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -115,11 +129,16 @@ export class SearchComponent {
     this.svc.addBookmark(this.mapToDto(r)).subscribe({
       next: () => {
         this.message = 'Bookmarked!';
-        setTimeout(()=> this.message = '', 1500);
+        setTimeout(()=> {
+          this.message = '';
+          this.cdr.detectChanges(); 
+        }, 1500);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.message = 'Failed bookmarking';
+        this.cdr.detectChanges();
       }
     });
   }
@@ -142,17 +161,20 @@ export class SearchComponent {
     if (!this.emailTo || !this.emailTo.includes('@')) {
       this.emailStatus = 'Please enter a valid email';
       this.emailOk = false;
+      this.cdr.detectChanges();
       return;
     }
     this.svc.sendEmail(this.emailTo, this.mapToDto(this.selectedRepo)).subscribe({
       next: () => {
         this.emailStatus = 'Email queued (check pickup dir).';
         this.emailOk = true;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.emailStatus = 'Failed to send email';
         this.emailOk = false;
+        this.cdr.detectChanges();
       }
     });
   }

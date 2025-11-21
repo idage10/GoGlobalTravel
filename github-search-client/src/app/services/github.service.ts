@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RepoDto } from '../models/repo.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 // Change if your backend runs on a different port or host
 const API_BASE = 'http://localhost:5000';
@@ -10,6 +10,9 @@ const API_BASE = 'http://localhost:5000';
   providedIn: 'root'
 })
 export class GithubService {
+  private bookmarksChangedSource = new Subject<void>();
+  bookmarksChanged$ = this.bookmarksChangedSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   // Search GitHub public API (no auth)
@@ -20,7 +23,17 @@ export class GithubService {
 
   // Bookmarks (server stores in ASP.NET Session)
   addBookmark(repo: RepoDto): Observable<RepoDto[]> {
-    return this.http.post<RepoDto[]>(`${API_BASE}/gitbookmarks/add`, repo, { withCredentials: true });
+    return new Observable(observer => {
+      this.http.post<RepoDto[]>(`${API_BASE}/gitbookmarks/add`, repo, { withCredentials: true }).subscribe({
+        next: res => {
+          // notify that bookmarks changed
+          this.bookmarksChangedSource.next();
+          observer.next(res);
+          observer.complete();
+        },
+        error: err => observer.error(err)
+      });
+    });
   }
 
   listBookmarks(): Observable<RepoDto[]> {

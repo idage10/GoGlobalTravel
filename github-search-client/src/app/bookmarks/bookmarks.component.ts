@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GithubService } from '../services/github.service';
 import { RepoDto } from '../models/repo.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bookmarks',
@@ -11,24 +12,31 @@ import { RepoDto } from '../models/repo.model';
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <strong>Bookmarked Repositories</strong>
-        <button class="btn btn-sm btn-outline-secondary" (click)="load()">Refresh</button>
       </div>
       <div class="card-body">
-        <div *ngIf="msg" class="alert alert-info">{{ msg }}</div>
-        <div *ngIf="bookmarks.length === 0" class="text-muted">No bookmarks yet.</div>
+        @if (msg) {
+          <div class="alert alert-info">{{ msg }}</div>
+        }
+        @if (bookmarks.length === 0) {
+          <div class="text-muted">No bookmarks yet.</div>
+        }
         <div class="row">
-          <div *ngFor="let b of bookmarks" class="col-12 mb-2">
-            <div class="d-flex align-items-center">
-              <img *ngIf="avatarOf(b)" [src]="avatarOf(b)" style="width:48px;height:48px;object-fit:cover;margin-right:10px" />
-              <div class="flex-grow-1">
-                <div><a [href]="htmlUrlOf(b)" target="_blank">{{ displayFullName(b) }}</a></div>
-                <div class="small text-muted">{{ b.description }}</div>
-              </div>
-              <div>
-                <button class="btn btn-sm btn-danger" (click)="remove(b.id)">Unbookmark</button>
+          @for (b of bookmarks; track b.id) {
+            <div class="col-12 mb-2">
+              <div class="d-flex align-items-center">
+                @if (avatarOf(b)) {
+                  <img [src]="avatarOf(b)" style="width:48px;height:48px;object-fit:cover;margin-right:10px" />
+                }
+                <div class="flex-grow-1">
+                  <div><a [href]="htmlUrlOf(b)" target="_blank">{{ displayFullName(b) }}</a></div>
+                  <div class="small text-muted">{{ b.description }}</div>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-danger" (click)="remove(b.id)">Unbookmark</button>
+                </div>
               </div>
             </div>
-          </div>
+          }
         </div>
       </div>
     </div>
@@ -37,17 +45,20 @@ import { RepoDto } from '../models/repo.model';
 export class BookmarksComponent implements OnInit {
   bookmarks: RepoDto[] = [];
   msg = '';
+  private sub?: Subscription;
 
-  constructor(private svc: GithubService) {}
+  constructor(private svc: GithubService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.load();
+    this.sub = this.svc.bookmarksChanged$.subscribe(() => this.load());
   }
 
   load() {
     this.svc.listBookmarks().subscribe({
       next: (list) => {
         this.bookmarks = (list || []).map(this.normalize);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
@@ -60,11 +71,16 @@ export class BookmarksComponent implements OnInit {
       next: (list) => {
         this.bookmarks = (list || []).map(this.normalize);
         this.msg = 'Removed';
-        setTimeout(() => this.msg = '', 1200);
+        setTimeout(() => { 
+          this.msg = '';
+          this.cdr.detectChanges();
+        }, 1200);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
         this.msg = 'Failed to remove';
+        this.cdr.detectChanges();
       }
     });
   }
