@@ -10,7 +10,7 @@ namespace GitHubRepositories.Api
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();  // important!
+            AreaRegistration.RegisterAllAreas();  // important for using session!
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             // Required for Session !!!

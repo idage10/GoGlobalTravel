@@ -11,7 +11,7 @@ namespace GitHubRepositories.Api.Controllers
     {
         [HttpPost]
         [Route("send")]
-        public IHttpActionResult Send([FromBody] EmailRequest req)
+        public IHttpActionResult Send([FromBody] EmailRequestDto req)
         {
             if (req == null || string.IsNullOrWhiteSpace(req.To))
                 return BadRequest("Invalid request");
@@ -27,6 +27,8 @@ namespace GitHubRepositories.Api.Controllers
                 message.Body = body;
                 message.IsBodyHtml = true;
 
+                // Set the location folder where the email file will be saved (instead of sending real email using credentials).
+                // The email file will be saved in the visual studio project folder under: /App_Data/Emails
                 var client = new SmtpClient
                 {
                     DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory,
@@ -52,12 +54,6 @@ namespace GitHubRepositories.Api.Controllers
                 <p><strong>Url:</strong> <a href='{repo.HtmlUrl}' target='_blank'>{repo.HtmlUrl}</a></p>
                 <p><strong>Owner:</strong> {repo.Owner?.Login}</p>
             ";
-        }
-
-        public class EmailRequest
-        {
-            public string To { get; set; }
-            public RepoDto Repo { get; set; }
         }
     }
 }

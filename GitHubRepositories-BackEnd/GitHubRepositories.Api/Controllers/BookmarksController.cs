@@ -58,11 +58,5 @@ namespace GitHubRepositories.Api.Controllers
             }
             return Ok(list);
         }
-
-        // Small helper DTO for remove endpoint
-        public class IdRequest
-        {
-            public long Id { get; set; }
-        }
     }
 }

@@ -31,4 +31,15 @@ namespace GitHubRepositories.Api.Models
         [JsonProperty("avatar_url")]
         public string AvatarUrl { get; set; }
     }
+
+    public class EmailRequestDto
+    {
+        public string To { get; set; }
+        public RepoDto Repo { get; set; }
+    }
+
+    public class IdRequest
+    {
+        public long Id { get; set; }
+    }
 }
