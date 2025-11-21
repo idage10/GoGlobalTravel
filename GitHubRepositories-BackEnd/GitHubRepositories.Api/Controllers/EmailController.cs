@@ -5,7 +5,7 @@ using GitHubRepositories.Api.Models;
 
 namespace GitHubRepositories.Api.Controllers
 {
-    [RoutePrefix("api/email")]
+    [RoutePrefix("email")]
     public class EmailController : ApiController
     {
         [HttpPost]
