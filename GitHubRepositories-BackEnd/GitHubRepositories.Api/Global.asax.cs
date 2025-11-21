@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.SessionState;
 
 namespace GitHubRepositories.Api
 {
@@ -9,7 +10,21 @@ namespace GitHubRepositories.Api
     {
         protected void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();  // important!
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            // Required for Session !!!
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteTable.Routes.MapHttpRoute(
+                name: "ApiWithSession",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            ).RouteHandler = new SessionRouteHandler();
+        }
+
+        protected void Application_PostAuthorizeRequest()
+        {
+            HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
         }
     }
 }

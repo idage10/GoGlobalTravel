@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|c:\\users\\idan\\source\\repos\\goglobaltravel\\githubrepositories-backend\\githubrepositories.api\\controllers\\bookmarkscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|solutionrelative:githubrepositories.api\\controllers\\bookmarkscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|c:\\users\\idan\\source\\repos\\goglobaltravel\\githubrepositories-backend\\githubrepositories.api\\app_start\\webapiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|solutionrelative:githubrepositories.api\\app_start\\webapiconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|c:\\users\\idan\\source\\repos\\goglobaltravel\\githubrepositories-backend\\githubrepositories.api\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FC01F664-57D5-4949-BFA8-18EFBB3F5B9A}|GitHubRepositories.Api\\GitHubRepositories.Api.csproj|solutionrelative:githubrepositories.api\\global.asax.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +22,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WebApiConfig.cs",
+              "DocumentMoniker": "C:\\Users\\idan\\Source\\Repos\\GoGlobalTravel\\GitHubRepositories-BackEnd\\GitHubRepositories.Api\\App_Start\\WebApiConfig.cs",
+              "RelativeDocumentMoniker": "GitHubRepositories.Api\\App_Start\\WebApiConfig.cs",
+              "ToolTip": "C:\\Users\\idan\\Source\\Repos\\GoGlobalTravel\\GitHubRepositories-BackEnd\\GitHubRepositories.Api\\App_Start\\WebApiConfig.cs",
+              "RelativeToolTip": "GitHubRepositories.Api\\App_Start\\WebApiConfig.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAwAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T03:25:27.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Global.asax.cs",
+              "DocumentMoniker": "C:\\Users\\idan\\Source\\Repos\\GoGlobalTravel\\GitHubRepositories-BackEnd\\GitHubRepositories.Api\\Global.asax.cs",
+              "RelativeDocumentMoniker": "GitHubRepositories.Api\\Global.asax.cs",
+              "ToolTip": "C:\\Users\\idan\\Source\\Repos\\GoGlobalTravel\\GitHubRepositories-BackEnd\\GitHubRepositories.Api\\Global.asax.cs",
+              "RelativeToolTip": "GitHubRepositories.Api\\Global.asax.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwBoAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T03:24:21.227Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +58,7 @@
               "RelativeDocumentMoniker": "GitHubRepositories.Api\\Controllers\\BookmarksController.cs",
               "ToolTip": "C:\\Users\\idan\\Source\\Repos\\GoGlobalTravel\\GitHubRepositories-BackEnd\\GitHubRepositories.Api\\Controllers\\BookmarksController.cs",
               "RelativeToolTip": "GitHubRepositories.Api\\Controllers\\BookmarksController.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAkwA8AAAAlAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAIAwwB4AAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-20T20:24:48.563Z",
               "EditorCaption": ""
