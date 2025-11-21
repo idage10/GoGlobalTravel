@@ -179,7 +179,7 @@ export class SearchComponent {
     });
   }
 
-  // Map fields to server-side DTO naming (server accepts flexible mapping)
+  // Map fields to server-side DTO naming
   private mapToDto(r: any): RepoDto {
     return {
       id: r.id,

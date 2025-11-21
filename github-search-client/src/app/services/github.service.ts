@@ -10,12 +10,13 @@ const API_BASE = 'http://localhost:5000';
   providedIn: 'root'
 })
 export class GithubService {
+  // Component can listen to this observable using the Injectable "GithubService" and trigger event after the observable changed 
   private bookmarksChangedSource = new Subject<void>();
   bookmarksChanged$ = this.bookmarksChangedSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // Search GitHub public API (no auth)
+  // Search GitHub public API
   searchRepos(q: string): Observable<any> {
     const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(q)}`;
     return this.http.get(url);
