@@ -2,8 +2,11 @@
 
 This project has two parts:
 
-* **Backend** (ASP.NET Web API)
-* **Frontend** (Angular)
+* **Backend** (ASP.NET Web API) in folder: GitHubRepositories-BackEnd
+* **Frontend** (Angular) in folder: github-search-client
+
+The answers for the Go Global travel exam are in the root directory under file name:
+* **GoGlobalAnswers.pdf**
 
 Follow the steps below to run both.
 
