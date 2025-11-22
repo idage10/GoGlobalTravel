@@ -8,7 +8,7 @@ This project has two parts:
 The answers for the Go Global travel exam are in the root directory under file name:
 * **GoGlobalAnswers.pdf**
 
-Follow the steps below to run both.
+Follow the steps below to run both projects.
 
 ---
 
