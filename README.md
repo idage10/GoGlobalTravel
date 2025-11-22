@@ -2,13 +2,16 @@
 
 This project has two parts:
 
-* **Backend** (ASP.NET Web API) in folder: GitHubRepositories-BackEnd
-* **Frontend** (Angular) in folder: github-search-client
+* **Backend** (ASP.NET Web API) in folder: GitHubRepositories-BackEnd.
+* **Backend Note:** The implementation for sending email is saving email file in the Backend project in folder "App_Data\Emails" 
+					instead of sending email to SMTP mail server, in order to avoid using mail server credential (username and password).
+					The implementation is in the email controller in the Backend project.
+* **Frontend** (Angular) in folder: github-search-client.
 
 The answers for the Go Global travel exam are in the root directory under file name:
 * **GoGlobalAnswers.pdf**
 
-Follow the steps below to run both projects.
+Follow the steps below to run both projects:
 
 ---
 
