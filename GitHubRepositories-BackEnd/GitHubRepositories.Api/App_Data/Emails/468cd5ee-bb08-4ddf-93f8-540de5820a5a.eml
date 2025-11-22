@@ -1,0 +1,18 @@
+X-Sender: noreply@myapp.com
+X-Receiver: test@gmail.com
+MIME-Version: 1.0
+From: noreply@myapp.com
+To: test@gmail.com
+Date: 22 Nov 2025 01:31:53 +0200
+Subject: Repository info: lardawge/carrierwave_backgrounder
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+=0D=0A                <h2>lardawge/carrierwave_backgrounder</h2>=0D=0A=
+                <p><strong>Description:</strong> Offload CarrierW=
+ave's image processing and storage to a background process using =
+ActiveJob or Sidekiq.</p>=0D=0A                <p><strong>Url:</s=
+trong> <a href=3D'https://github.com/lardawge/carrierwave_backgro=
+under' target=3D'_blank'>https://github.com/lardawge/carrierwave_=
+backgrounder</a></p>=0D=0A                <p><strong>Owner:</stro=
+ng> lardawge</p>=0D=0A           =20
